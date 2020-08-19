@@ -195,11 +195,13 @@ const ScreamDialog = ({ screamId }) => {
           </DialogContent>
         }
         <DialogActions>
-          <form className={classes.form} onSubmit={handleSubmit}>
-            <input type="text" placeholder="Enter comment..." className={classes.textBox}
-              value={text} onChange={e => setText(e.target.value)} />
-            <button disabled={!text ? true : false} type="submit" className={classes.submit}> <SendIcon /> </button>
-          </form>
+          {
+            user.authenticated && <form className={classes.form} onSubmit={handleSubmit}>
+              <input type="text" placeholder="Enter comment..." className={classes.textBox}
+                value={text} onChange={e => setText(e.target.value)} />
+              <button disabled={!text ? true : false} type="submit" className={classes.submit}> <SendIcon /> </button>
+            </form>
+          }
         </DialogActions>
       </Dialog>
     </div>

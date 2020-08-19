@@ -1,9 +1,10 @@
 import * as actionTypes from '../types';
 import axios from 'axios';
+import { baseUrl } from '../../config/API_URL';
 
 export const getScreams = () => dispatch => {
   dispatch({ type: actionTypes.LOADING_DATA });
-  axios.get('/screams')
+  axios.get(baseUrl + '/screams')
     .then(res => {
       dispatch({
         type: actionTypes.SET_SCREAMS,
@@ -15,7 +16,7 @@ export const getScreams = () => dispatch => {
 }
 
 export const likeScream = (screamId) => dispatch => {
-  axios.get(`/scream/${screamId}/like`)
+  axios.get(`${baseUrl}/scream/${screamId}/like`)
     .then(res => {
       dispatch({
         type: actionTypes.LIKE_SCREAM,
@@ -26,7 +27,7 @@ export const likeScream = (screamId) => dispatch => {
     });
 }
 export const unlikeScream = (screamId) => dispatch => {
-  axios.get(`/scream/${screamId}/unlike`)
+  axios.get(`${baseUrl}/scream/${screamId}/unlike`)
     .then(res => {
       dispatch({
         type: actionTypes.UNLIKE_SCREAM,
@@ -37,7 +38,7 @@ export const unlikeScream = (screamId) => dispatch => {
     });
 }
 export const deleteScream = screamId => dispatch => {
-  axios.delete(`/scream/${screamId}`)
+  axios.delete(`${baseUrl}/scream/${screamId}`)
     .then(res => {
       dispatch({
         type: actionTypes.DELETE_SCREAM,
@@ -48,7 +49,7 @@ export const deleteScream = screamId => dispatch => {
 }
 
 export const createScream = newScream => dispatch => {
-  axios.post(`/screams`, newScream)
+  axios.post(`${baseUrl}/screams`, newScream)
     .then(res => {
       dispatch({
         type: actionTypes.CREATE_SCREAM,
@@ -59,7 +60,7 @@ export const createScream = newScream => dispatch => {
 
 export const getScream = screamId => dispatch => {
   dispatch({ type: actionTypes.LOADING_UI });
-  axios.get(`/scream/${screamId}`)
+  axios.get(`${baseUrl}/scream/${screamId}`)
     .then(res => {
       dispatch({
         type: actionTypes.GET_SCREAM,
@@ -75,11 +76,28 @@ export const getScream = screamId => dispatch => {
 }
 
 export const addComment = (screamId, newComment) => dispatch => {
-  axios.post(`/scream/${screamId}/comment`, newComment)
+  axios.post(`${baseUrl}/scream/${screamId}/comment`, newComment)
     .then(res => {
       dispatch({
         type: actionTypes.ADD_COMMENT,
         payload: res.data
       });
     }).catch(err => console.log(err));
+}
+
+export const getUserData = userHandle => dispatch => {
+  dispatch({ type: actionTypes.LOADING_DATA });
+  axios.get(`${baseUrl}/user/${userHandle}`)
+    .then(res => {
+      dispatch({
+        type: actionTypes.SET_SCREAMS,
+        payload: res.data.screams
+      });
+    }).catch(err => {
+      console.log(err);
+      dispatch({
+        type: actionTypes.SET_SCREAMS,
+        payload: null
+      });
+    });
 }

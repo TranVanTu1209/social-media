@@ -1,0 +1,1 @@
+export const baseUrl = 'https://asia-southeast2-social-media-58de3.cloudfunctions.net/api';

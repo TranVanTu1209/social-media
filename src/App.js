@@ -12,6 +12,8 @@ import * as actionTypes from './redux/types';
 import * as userActions from './redux/action/userAction';
 import store from './redux/store';
 import axios from 'axios';
+import UserDetail from './pages/UserDetail';
+import NullPage from './pages/NullPage';
 
 const token = localStorage.getItem('fbToken');
 if (token)
@@ -39,8 +41,10 @@ const App = () => {
         <div className="container">
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/user/:userHandle" component={UserDetail} />
             <AuthRoute exact path="/login" component={Login} />
             <AuthRoute exact path="/signup" component={SignUp} />
+            <Route path="*" component={NullPage} />
           </Switch>
         </div>
       </Router>
